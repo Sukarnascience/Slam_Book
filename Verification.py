@@ -5,7 +5,7 @@ import random
 import requests
 import json
 
-key = "jSMnfehztjfkQurNjzt7QByBEPlltccIDG0yfrGiZp6"
+key = "---Use your Key---"
 
 screen = Tk()
 OTP=None
@@ -24,7 +24,7 @@ def ok():
             break
     return True
 
-def generateOTP(phoneNo="9113688393"):
+def generateOTP(phoneNo="---Enter any Phone No---"):
     eventName = "give_OTP"
     ip=socket.gethostbyname(socket.gethostname())
     if(ip=="127.0.0.1"):
