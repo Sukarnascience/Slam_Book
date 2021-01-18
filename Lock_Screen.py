@@ -1,11 +1,32 @@
 from tkinter import *
 from tkinter import messagebox
 import Verification as MyOTP
+import mysql.connector as mysql
+import Slambook as myBook
 
 GetOTP=None
 move=None
 screen = Tk()
 screen1 = Tk()
+screen2 = Tk()
+
+connection = mysql.connect(user='mysql', password='jana1234', host='localhost', database='mysql')
+
+def checkLogin(username,password):
+    checker = connection.cursor()
+    checker.execute("SELECT * FROM loginData;")
+    data = checker.fetchall()
+    if([username,password] in data):
+        messagebox.showinfo("Last step","Great Your account is exsisting\nSo, Now enter your Phone No. For OTP")
+    else:
+        messagebox.showwarning("Sorry","Something went wrong\nPlease check your details or you might not have account!")
+
+def signupDataIn(username,password,phoneNoForNew):
+    checker = connection.cursor()
+    checker.execute("INSERT INTO loginData values('{}','{}','{}');".format(username,password,phoneNoForNew))
+    connection.commit()
+    messagebox.showinfo("Great","Your Account has successfully created")
+
 
 def lockscreen(stay):   
     screen.geometry("200x40")
