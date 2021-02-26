@@ -1,3 +1,5 @@
+# Still ON working Stage
+
 import pygame
 import time
 
@@ -40,4 +42,9 @@ while True:
     if(chance==4):
         time.sleep(2)
         break
- 
+
+stateOfGWP = log.GatewayPage()
+if(stateOfGWP):
+    book.MainSlamPG()
+else:
+    print("ERROR")
