@@ -1,10 +1,13 @@
 import mysql.connector as sql
 from tkinter import messagebox 
+import Lock_Screen as userDetails
 from tkinter import *
 import csv
 import time
 
 def MainSlamPG():
+    userNameAcc = userDetails.accountName()
+
     screen=Tk()
     screen.title("Slam Book -s.jana")
     screen.geometry("400x400")
@@ -25,21 +28,21 @@ def MainSlamPG():
         e=PN.get()
         
         cc=datafrom.cursor()
-        cc.execute("INSERT INTO friends values('{}','{}','{}','{}','{}');".format(a,b,c,d,e))
+        cc.execute("INSERT INTO {} values('{}','{}','{}','{}','{}');".format(userNameAcc,a,b,c,d,e))
         datafrom.commit()
         datafrom.close()
 
-    headpart=Label(text="My Slam Book")
-    lineLL=Label(text="____________________________________________")
+    headpart=Label(screen,text="My Slam Book")
+    lineLL=Label(screen,text="____________________________________________")
 
     headpart.pack()
     lineLL.pack()
 
-    firstName=Label(text="First Name :")
-    lastName=Label(text="Last Name :")
-    gender=Label(text="SEX :")
-    Relationship=Label(text="Relationship :")
-    lablephoneNo=Label(text="Phone No. :")
+    firstName=Label(screen,text="First Name :")
+    lastName=Label(screen,text="Last Name :")
+    gender=Label(screen,text="SEX :")
+    Relationship=Label(screen,text="Relationship :")
+    lablephoneNo=Label(screen,text="Phone No. :")
 
     giveName=Entry(screen,textvariable=FN)
     givelastName=Entry(screen,textvariable=LN)
@@ -66,7 +69,7 @@ def MainSlamPG():
     def dataOut():
         datafrom=sql.connect(host='localhost',passwd='jana1234',user='root',database='school')
         mypoint=datafrom.cursor()
-        mypoint.execute("SELECT * FROM friends;")
+        mypoint.execute("SELECT * FROM {};".format(userNameAcc))
 
         printoutintxt = open("MySlamBook.csv",'a')
         mytyper = csv.writer(printoutintxt)
@@ -76,9 +79,9 @@ def MainSlamPG():
         printoutintxt.close()
         messagebox.showinfo("Thank You","Print Out has beed dun successfully \nnamed \"MySLamBook.csv\" in home Page ")
 
-    cancelPG=Button(text="Cancel",command=end)
-    nextPG=Button(text="Next->",command=nextp)
-    printPG=Button(text="Print Out",command=dataOut)
+    cancelPG=Button(screen,text="Cancel",command=end)
+    nextPG=Button(screen,text="Next->",command=nextp)
+    printPG=Button(screen,text="Print Out",command=dataOut)
 
     cancelPG.place(x=200,y=300)
     nextPG.place(x=260,y=300)
@@ -88,4 +91,3 @@ def MainSlamPG():
 
 def ok():
     return True
-
